@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <cstdint>
 #include <cmath>
 #include <vector>
@@ -174,30 +175,115 @@ void repetitionsCSES() {
     return;
 }
 
-void increasingArray() {
-    int vSize;
+void increasingArrayCSES() {
+    unsigned long long vSize;
     std::cin >> vSize;
-    long long input;
-    std::vector<long long> v;
+    unsigned long long input;
+    std::vector<unsigned long long> v;
     while (std::cin >> input) {
         v.push_back(input);
     }
-    long long moves = 0;
+    unsigned long long moves = 0;
+    unsigned long long temp = 0;
     for (int i = 1; i < vSize; ++i) {
         if (v[i - 1] > v[i]) {
-            int temp = std::abs(v[i-1] - v[i]);
-            if (temp > moves) {
-                moves = temp;
-            }
+            temp = v[i-1] - v[i];
+            v[i] += temp;
+            moves += temp;
         }
     }
     std::cout << moves;
 }
 
-int main() {
+void permutationsCSES() {
+    // std::ifstream fin("./tests/1.in");
+    // std::ofstream fout("./tests/1out.out");
+    uint32_t n;
+    // fin >> n;
+    std::cin >> n;
+    std::vector<uint32_t> v;
+    if (n == 1) {
+        std::cout << 1;
+        return;
+    }
+    if (n < 4) {
+        std::cout << "NO SOLUTION";
+        return;
+    }
+    for (int i = 2; i <= n; i += 2) {
+        v.push_back(i);
+    }
+    for (int i = 1; i <= n; i += 2) {
+        v.push_back(i);
+    }
+    int i = 0;
+    while (i < v.size()) {
+        // fout << v[i];
+        std::cout <<  v[i] << " ";
+        ++i;
+    }
+    // return;
+}
+
+void numberSpiralCSES() {
+        // Input
+    uint64_t n, input;
+    std::cin >> n;
+    std::vector<std::pair<uint64_t, uint64_t>> v;
+    std::vector<uint64_t> res(n, 0);
+    for (int i = 0; i < n; ++i) {
+        uint64_t y, x;
+        std::cin >> y;
+        std::cin >> x;
+        v.push_back(std::pair<uint64_t, uint64_t>(y, x));
+    }
+
+    // Algorithm
+    for (int i = 0; i < n; ++i) {
+        if (v[i].first > v[i].second) {         // y > x
+            if (v[i].first % 2 == 0) { // y is even
+                uint64_t temp = v[i].first * v[i].first;
+                temp -= v[i].second - 1;
+                res[i] = temp;
+            } else {                   // y is odd
+                uint64_t temp = (v[i].first - 1) * (v[i].first - 1) + 1;
+                temp += v[i].second - 1;
+                res[i] = temp;
+            }
+        } else if (v[i].first < v[i].second) {  // y < x
+            if (v[i].second % 2 == 0)  { // x is even
+                uint64_t temp = (v[i].second - 1) *( v[i].second - 1) + 1;
+                temp += v[i].first - 1;
+                res[i] = temp;
+            } else {                     // x is odd
+                uint64_t temp = v[i].second * v[i].second;
+                temp -= v[i].first - 1;
+                res[i] = temp;
+            }
+        } else {                                // y == x
+            res[i] = v[i].first * v[i].first - (v[i].first - 1);
+        }
+    }
+
+    // Output
+    for (int i = 0; i < n; ++i) {
+        std::cout << res[i] << '\n';
+    }
     return 0;
 }
 
-// fucked up reverseBits() case, don't delete
-    // std::cout << std::bitset<32>(4294967293) << std::endl;
-    // std::cout << std::bitset<32>(reverseBits(4294967293)) << std::endl;
+void twoKnightCSES() {
+    // fuck CSES
+}
+
+void twoSetsCSES() {
+    // fuck CSES
+}
+
+void bitStringsCSES() {
+    
+}
+
+int main() {
+
+}
