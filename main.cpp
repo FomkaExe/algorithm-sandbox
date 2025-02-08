@@ -4,6 +4,8 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#include <map>
+#include <unordered_map>
 
 int xorAllNums(std::vector<int>& nums1, std::vector<int>& nums2) {
     std::vector<int> nums3(nums1.size() * nums2.size());
@@ -194,10 +196,102 @@ void increasingArray() {
     std::cout << moves;
 }
 
+uint16_t subarraySum(std::vector<uint16_t> &nums, uint16_t k) {
+    int l = 0, r = 0, count = 0;
+    uint16_t sum = nums[l];
+    while (true)
+    {
+        if (sum > k)
+        {
+            if (l == r && l + 1 < nums.size())
+            {
+                ++r;
+                ++l;
+                sum = nums[r];
+            }
+            else if (l < r)
+            {
+                sum -= nums[l];
+                ++l;
+            }
+            else
+            {
+                break;
+            }
+        }
+        else if (sum < k)
+        {
+            if (r + 1 < nums.size())
+            {
+                ++r;
+                sum += nums[r];
+            }
+            else
+            {
+                break;
+            }
+        }
+        else if (sum == k)
+        {
+            ++count;
+            if (r + 1 < nums.size())
+            {
+                ++r;
+                sum += nums[r];
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    return count;
+}
+
+int numSubarrayProductLessThanK(std::vector<int> &nums, int k)
+{
+    uint32_t l = 0, r = 0;
+    uint32_t product = nums[l];
+    uint16_t counter = (nums.size() * (nums.size() + 1) / 2);
+    while (true)
+    {
+        if (product < k)
+        {
+            if (r + 1 >= nums.size())
+            {
+                break;
+            }
+            r++;
+            product *= nums[r];
+        }
+        else if (product >= k)
+        {
+            counter--;
+            if (r + 1 < nums.size())
+            {
+                r++;
+                product *= nums[r];
+            }
+            else if (l + 1 < nums.size() && r + 1 >= nums.size())
+            {
+                product /= nums[l];
+                l++;
+            }
+            else if (l + 1 >= nums.size() && r + 1 >= nums.size())
+            {
+                break;
+            }
+            else if (l == r)
+            {
+                l++;
+                r++;
+                product = nums[l];
+            }
+        }
+    }
+    return counter;
+}
+
 int main() {
     return 0;
 }
-
-// fucked up reverseBits() case, don't delete
-    // std::cout << std::bitset<32>(4294967293) << std::endl;
-    // std::cout << std::bitset<32>(reverseBits(4294967293)) << std::endl;
