@@ -5,6 +5,9 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#include <stack>
+#include <array>
+#include <unordered_map>
 
 int xorAllNums(std::vector<int>& nums1, std::vector<int>& nums2) {
     std::vector<int> nums3(nums1.size() * nums2.size());
@@ -269,7 +272,7 @@ void numberSpiralCSES() {
     for (int i = 0; i < n; ++i) {
         std::cout << res[i] << '\n';
     }
-    return 0;
+    return;
 }
 
 void twoKnightCSES() {
@@ -281,9 +284,147 @@ void twoSetsCSES() {
 }
 
 void bitStringsCSES() {
-    
+    // fuck CSES
+}
+
+void nearestSmallerValuesCSES() {
+    uint32_t n;
+    std::cin >> n;
+    std::vector<uint32_t> arr;
+    uint32_t val;
+    while (std::cin >> val) {
+        arr.push_back(val);
+    }
+
+    std::stack<std::pair<uint32_t, uint32_t>> st;
+    for (unsigned int i = 0; i < arr.size(); ++i) {
+        while (!st.empty() && st.top().first >= arr[i]) {
+            st.pop();
+        }
+        if (st.empty()) {
+            std::cout << 0 << ' ';
+        } else {
+            std::cout << st.top().second << ' ';
+        }
+        st.push(std::make_pair(arr[i], i + 1));
+    }
+    return;
+}
+
+std::vector<uint32_t> bracketsMatchingCSA(std::string str) {
+    // ")(()))"
+    std::vector<uint32_t> indArr(str.size(), 0);
+    std::stack<uint32_t> st;
+    /*
+        if balanced return indices array
+        if unbalanced return empty array
+    */
+    for (int i = 0; i < str.size(); ++i) {
+        if (str[i] == '(') {
+            st.push(i);
+        }
+
+        if (str[i] == ')') {
+            if (!st.empty()) {
+                indArr[st.top()] = i;
+                indArr[i] = st.top();
+                st.pop();
+            } else {
+                return std::vector<uint32_t>();
+            }
+        }
+    }
+
+    if (!st.empty()) {
+        return std::vector<uint32_t>();
+    }
+
+    return indArr;
+}
+
+
+std::vector<int> nextGreaterElementLC(std::vector<int>& nums1, std::vector<int>& nums2) {
+    std::vector<int> result = nums1;
+    for (int i = 0; i < nums1.size(); ++i) {
+        result[i] = -1;
+        bool greater = false;
+        for (int j = 0; j < nums2.size(); ++j) {
+            if (greater) {
+                if (nums1[i] < nums2[j]) {
+                    result[i] = nums2[j];
+                    break;
+                }
+            }
+            if (nums1[i] == nums2[j]) {
+                greater = true;
+            }
+        }
+    }
+    return result;
+}
+
+int evalRPNLC(std::vector<std::string>& tokens) {
+    std::stack<int> stack;
+    int res = std::stoi(tokens.front());
+    for (int i = 1; i < tokens.size(); ++i) {
+        if (tokens[i] == "+") {
+            int t = stack.top();
+            stack.pop();
+            res += t;
+            break;
+        } else if (tokens[i] == "-") {
+            int t = stack.top();
+            stack.pop();
+            res -= t;
+            break;
+        } else if (tokens[i] == "*") {
+            int t = stack.top();
+            stack.pop();
+            res *= t;
+            break;
+        } else if (tokens[i] == "/") {
+            int t = stack.top();
+            stack.pop();
+            res /= t;
+                break;
+        } else {
+            stack.push(std::stoi(tokens[i]));
+            break;
+        }
+    }
+    return res;
+}
+
+bool isHappy(int n) {
+    std::unordered_map<int, int> hashTable;
+    hashTable[n]++;
+    while (n != 1) {
+        int temp = 0;
+        while (n != 0) {
+            temp += (n%10) * (n%10);
+            n /= 10;
+        }
+        n = temp;
+        if (hashTable[n] < 2) {
+            hashTable[n]++;
+        } else {
+            return false;
+        }
+    }
+    return true;
 }
 
 int main() {
-
+    std::cout << isHappy(19) << std::endl;
+    // int t = 19;
+    // int p = 0;
+    // p = t%10;
+    // t /= 10;
+    // std::cout << "p: " << p << std::endl;
+    // std::cout << "t: " << t << std::endl;
+    // p = t%10;
+    // t /= 10;
+    // std::cout << "p: " << p << std::endl;
+    // std::cout << "t: " << t << std::endl;
+    return 0;
 }
