@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <stack>
 #include <array>
+#include <map>
 #include <unordered_map>
 
 int xorAllNums(std::vector<int>& nums1, std::vector<int>& nums2) {
@@ -198,6 +199,26 @@ void increasingArrayCSES() {
     std::cout << moves;
 }
 
+void increasingArray() {
+    int vSize;
+    std::cin >> vSize;
+    long long input;
+    std::vector<long long> v;
+    while (std::cin >> input) {
+        v.push_back(input);
+    }
+    long long moves = 0;
+    for (int i = 1; i < vSize; ++i) {
+        if (v[i - 1] > v[i]) {
+            int temp = std::abs(v[i-1] - v[i]);
+            if (temp > moves) {
+                moves = temp;
+            }
+        }
+    }
+    std::cout << moves;
+}
+
 void permutationsCSES() {
     // std::ifstream fin("./tests/1.in");
     // std::ofstream fout("./tests/1out.out");
@@ -275,16 +296,56 @@ void numberSpiralCSES() {
     return;
 }
 
-void twoKnightCSES() {
-    // fuck CSES
-}
-
-void twoSetsCSES() {
-    // fuck CSES
-}
-
-void bitStringsCSES() {
-    // fuck CSES
+uint16_t subarraySum(std::vector<uint16_t> &nums, uint16_t k) {
+    int l = 0, r = 0, count = 0;
+    uint16_t sum = nums[l];
+    while (true)
+    {
+        if (sum > k)
+        {
+            if (l == r && l + 1 < nums.size())
+            {
+                ++r;
+                ++l;
+                sum = nums[r];
+            }
+            else if (l < r)
+            {
+                sum -= nums[l];
+                ++l;
+            }
+            else
+            {
+                break;
+            }
+        }
+        else if (sum < k)
+        {
+            if (r + 1 < nums.size())
+            {
+                ++r;
+                sum += nums[r];
+            }
+            else
+            {
+                break;
+            }
+        }
+        else if (sum == k)
+        {
+            ++count;
+            if (r + 1 < nums.size())
+            {
+                ++r;
+                sum += nums[r];
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    return count;
 }
 
 void nearestSmallerValuesCSES() {
@@ -342,6 +403,49 @@ std::vector<uint32_t> bracketsMatchingCSA(std::string str) {
     return indArr;
 }
 
+int numSubarrayProductLessThanK(std::vector<int> &nums, int k)
+{
+    uint32_t l = 0, r = 0;
+    uint32_t product = nums[l];
+    uint16_t counter = (nums.size() * (nums.size() + 1) / 2);
+    while (true)
+    {
+        if (product < k)
+        {
+            if (r + 1 >= nums.size())
+            {
+                break;
+            }
+            r++;
+            product *= nums[r];
+        }
+        else if (product >= k)
+        {
+            counter--;
+            if (r + 1 < nums.size())
+            {
+                r++;
+                product *= nums[r];
+            }
+            else if (l + 1 < nums.size() && r + 1 >= nums.size())
+            {
+                product /= nums[l];
+                l++;
+            }
+            else if (l + 1 >= nums.size() && r + 1 >= nums.size())
+            {
+                break;
+            }
+            else if (l == r)
+            {
+                l++;
+                r++;
+                product = nums[l];
+            }
+        }
+    }
+    return counter;
+}
 
 std::vector<int> nextGreaterElementLC(std::vector<int>& nums1, std::vector<int>& nums2) {
     std::vector<int> result = nums1;
@@ -414,17 +518,18 @@ bool isHappy(int n) {
     return true;
 }
 
+void twoKnightCSES() {
+    // fuck CSES
+}
+
+void twoSetsCSES() {
+    // fuck CSES
+}
+
+void bitStringsCSES() {
+    // fuck CSES
+}
+
 int main() {
-    std::cout << isHappy(19) << std::endl;
-    // int t = 19;
-    // int p = 0;
-    // p = t%10;
-    // t /= 10;
-    // std::cout << "p: " << p << std::endl;
-    // std::cout << "t: " << t << std::endl;
-    // p = t%10;
-    // t /= 10;
-    // std::cout << "p: " << p << std::endl;
-    // std::cout << "t: " << t << std::endl;
-    return 0;
+
 }
