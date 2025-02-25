@@ -9,8 +9,9 @@
 #include <array>
 #include <map>
 #include <unordered_map>
+#include <set>
 
-int xorAllNums(std::vector<int>& nums1, std::vector<int>& nums2) {
+int xorAllNums_LC_2425(std::vector<int>& nums1, std::vector<int>& nums2) {
     std::vector<int> nums3(nums1.size() * nums2.size());
     for (int i = 0; i < nums1.size(); ++i) {
         for (int j = 0; j < nums2.size(); ++j) {
@@ -25,7 +26,7 @@ int xorAllNums(std::vector<int>& nums1, std::vector<int>& nums2) {
 
 }
 
-uint32_t reverseBits(uint32_t n) {
+uint32_t reverseBits_LC_190(uint32_t n) {
     int j = 31;
     for (int i = 0; i < j; ++i, --j) {
         uint32_t temp_i = (n >> i)&1;
@@ -38,7 +39,7 @@ uint32_t reverseBits(uint32_t n) {
     return n;
 }
 
-int hammingDistance(int x, int y) {
+int hammingDistance_LC_461(int x, int y) {
     int count = 0;
     while (x != 0 && y != 0) {
         if (x&1 ^ y&1) {
@@ -50,7 +51,7 @@ int hammingDistance(int x, int y) {
     return count;
 }
 
-bool hasAlternatingBits(int n) {
+bool hasAlternatingBits_LC_693(int n) {
     while (n) {
         if (n&1 == (n >> 1)&1) {
             return false;
@@ -87,7 +88,7 @@ int findComplement(int num) {
     return (num ^ ((1 << (msb + 1)) - 1));
 }
 
-std::vector<std::vector<int>> subsets(std::vector<int>& nums) {
+std::vector<std::vector<int>> subsets_LC_78(std::vector<int>& nums) {
         int n = nums.size() - 1;
         int mask = (1 << nums.size()) - 1;
         std::vector<std::vector<int>> ans{std::vector<int>{}};
@@ -108,7 +109,7 @@ std::vector<std::vector<int>> subsets(std::vector<int>& nums) {
         return ans;
 }
 
-void weirdAlgorithmCSES() {
+void weirdAlgorithm_CSES() {
     long long n;
     std::cin >> n;
     std::string res = std::to_string(n) + " ";
@@ -124,7 +125,7 @@ void weirdAlgorithmCSES() {
     std::cout << res;
 }
 
-void missingNumberCSES() {
+void missingNumber_CSES() {
     long long n;
     std::cin >> n;
     long long input;
@@ -151,7 +152,7 @@ void missingNumberCSES() {
     return;
 }
 
-void repetitionsCSES() {
+void repetitions_CSES() {
     std::string input;
     std::cin >> input;
     if (input.size() < 2) {
@@ -179,7 +180,7 @@ void repetitionsCSES() {
     return;
 }
 
-void increasingArrayCSES() {
+void increasingArray_CSES() {
     unsigned long long vSize;
     std::cin >> vSize;
     unsigned long long input;
@@ -199,27 +200,7 @@ void increasingArrayCSES() {
     std::cout << moves;
 }
 
-void increasingArray() {
-    int vSize;
-    std::cin >> vSize;
-    long long input;
-    std::vector<long long> v;
-    while (std::cin >> input) {
-        v.push_back(input);
-    }
-    long long moves = 0;
-    for (int i = 1; i < vSize; ++i) {
-        if (v[i - 1] > v[i]) {
-            int temp = std::abs(v[i-1] - v[i]);
-            if (temp > moves) {
-                moves = temp;
-            }
-        }
-    }
-    std::cout << moves;
-}
-
-void permutationsCSES() {
+void permutations_CSES() {
     // std::ifstream fin("./tests/1.in");
     // std::ofstream fout("./tests/1out.out");
     uint32_t n;
@@ -249,7 +230,7 @@ void permutationsCSES() {
     // return;
 }
 
-void numberSpiralCSES() {
+void numberSpiral_CSES() {
         // Input
     uint64_t n, input;
     std::cin >> n;
@@ -296,7 +277,7 @@ void numberSpiralCSES() {
     return;
 }
 
-uint16_t subarraySum(std::vector<uint16_t> &nums, uint16_t k) {
+uint16_t subarraySum_LC_560(std::vector<uint16_t> &nums, uint16_t k) {
     int l = 0, r = 0, count = 0;
     uint16_t sum = nums[l];
     while (true)
@@ -348,7 +329,7 @@ uint16_t subarraySum(std::vector<uint16_t> &nums, uint16_t k) {
     return count;
 }
 
-void nearestSmallerValuesCSES() {
+void nearestSmallerValues_CSES() {
     uint32_t n;
     std::cin >> n;
     std::vector<uint32_t> arr;
@@ -372,7 +353,7 @@ void nearestSmallerValuesCSES() {
     return;
 }
 
-std::vector<uint32_t> bracketsMatchingCSA(std::string str) {
+std::vector<uint32_t> bracketsMatching_CSA(std::string str) {
     // ")(()))"
     std::vector<uint32_t> indArr(str.size(), 0);
     std::stack<uint32_t> st;
@@ -403,7 +384,7 @@ std::vector<uint32_t> bracketsMatchingCSA(std::string str) {
     return indArr;
 }
 
-int numSubarrayProductLessThanK(std::vector<int> &nums, int k)
+int numSubarrayProductLessThanK_LC_713(std::vector<int> &nums, int k)
 {
     uint32_t l = 0, r = 0;
     uint32_t product = nums[l];
@@ -447,7 +428,7 @@ int numSubarrayProductLessThanK(std::vector<int> &nums, int k)
     return counter;
 }
 
-std::vector<int> nextGreaterElementLC(std::vector<int>& nums1, std::vector<int>& nums2) {
+std::vector<int> nextGreaterElement_LC_496(std::vector<int>& nums1, std::vector<int>& nums2) {
     std::vector<int> result = nums1;
     for (int i = 0; i < nums1.size(); ++i) {
         result[i] = -1;
@@ -467,7 +448,7 @@ std::vector<int> nextGreaterElementLC(std::vector<int>& nums1, std::vector<int>&
     return result;
 }
 
-int evalRPNLC(std::vector<std::string>& tokens) {
+int evalRPN_LC_150(std::vector<std::string>& tokens) {
     std::stack<int> stack;
     int res = std::stoi(tokens.front());
     for (int i = 1; i < tokens.size(); ++i) {
@@ -499,7 +480,7 @@ int evalRPNLC(std::vector<std::string>& tokens) {
     return res;
 }
 
-bool isHappy(int n) {
+bool isHappy_LC_202(int n) {
     std::unordered_map<int, int> hashTable;
     hashTable[n]++;
     while (n != 1) {
@@ -528,6 +509,36 @@ void twoSetsCSES() {
 
 void bitStringsCSES() {
     // fuck CSES
+}
+
+int lengthOfLongestSubstringSet_LC_3(std::string s) {
+    std::set<char> set;
+    set.insert(s[0]);
+    int l = 0;
+    int r = 0;
+    int maxSize = 1;
+    int tempSize = 1;
+    while (r < s.size() - 1) {
+        if (!set.count(s[r+1])) {
+            ++tempSize;
+            ++r;
+            set.insert(s[r]);
+        } else {
+            maxSize = tempSize > maxSize ? tempSize : maxSize;
+            if (l < r) {
+                set.erase(s[l]);
+                --tempSize;
+                ++l;
+            } else {
+                set.erase(s[l]);
+                ++l;
+                ++r;
+                set.insert(s[r]);
+            }
+        }
+    }
+    maxSize = tempSize > maxSize ? tempSize : maxSize;
+    return maxSize;
 }
 
 int main() {
