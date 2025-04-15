@@ -541,6 +541,20 @@ int lengthOfLongestSubstringSet_LC_3(std::string s) {
     return maxSize;
 }
 
+template<typename T>
+void bubbleSort(std::vector<T>& vec) {
+	int itcount = 0;
+	for (auto i = 0; i < vec.size() - 1; ++i) {
+		for (auto j = 0; j < vec.size() - i - 1; ++j) {
+			if (vec[j] > vec[j + 1]) {
+				std::swap(vec[j], vec[j + 1]);
+			}
+			++itcount;
+		}
+	}
+	std::cout << itcount << std::endl;
+}
+
 int main() {
 
 }
